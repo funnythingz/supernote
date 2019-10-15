@@ -3,7 +3,7 @@
     nav.navbar.header.has-shadow.is-primary(role="navigation" aria-label="main navigation")
       .navbar-brand
         a.navbar-item(href="/")
-          img(src="~assets/buefy.png" alt="Buefy" height="28")
+          | SuperNote
         .navbar-burger
           span
           span
@@ -13,10 +13,10 @@
       aside.column.is-2.section
         p.menu-label.is-hidden-touch
         ul.menu-list
-          li(v-for="(item, key) of items" :key="key")
-            nuxt-link(:to="item.to" exact-active-class="is-active")
-              b-icon(:icon="item.icon")
-                | {{ item.title }}
+          li(v-for="(route, key) of routes" :key="key")
+            nuxt-link(:to="route.to" exact-active-class="is-active")
+              b-icon(:icon="route.icon")
+                | {{ route.title }}
       .container.column.is-10
         nuxt
 </template>
@@ -25,7 +25,7 @@
 export default {
   data () {
     return {
-      items: [
+      routes: [
         {
           title: 'Home',
           icon: 'home',
