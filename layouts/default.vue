@@ -1,42 +1,39 @@
 <template lang="pug">
-  div
-    nav.navbar.header.has-shadow.is-primary(role="navigation" aria-label="main navigation")
-      .navbar-brand
-        a.navbar-item(href="/")
-          | SuperNote
-        .navbar-burger
-          span
-          span
-          span
-
-    section.main-content.columns
-      aside.column.is-2.section
-        p.menu-label.is-hidden-touch
-        ul.menu-list
-          li(v-for="(route, key) of routes" :key="key")
-            nuxt-link(:to="route.to" exact-active-class="is-active")
-              b-icon(:icon="route.icon")
-                | {{ route.title }}
-      .container.column.is-10
-        nuxt
+section
+  nav.navbar.header.has-shadow.is-primary(role="navigation" aria-label="main navigation")
+    .navbar-brand
+      a.navbar-item(href="/")
+        | SuperNote
+    b-navbar-item(v-for="(route, key) of routes" :key="key" :href="route.to" :class="active(route.to)")
+      b-icon(:icon="route.icon")
+        | {{ route.title }}
+  .container
+    nuxt
 </template>
 
 <script>
 export default {
   data () {
     return {
+      currentRoute: this.$router.currentRoute.path,
       routes: [
         {
           title: 'Home',
           icon: 'home',
-          to: { name: 'index' }
+          to: '/'
         },
         {
-          title: 'Inspire',
-          icon: 'lightbulb',
-          to: { name: 'inspire' }
+          title: 'About',
+          icon: 'information-outline',
+          to: '/about'
         }
       ]
+    }
+  },
+
+  methods: {
+    active(name) {
+      return (this.currentRoute === name) ? 'is-active' : ''
     }
   }
 }
